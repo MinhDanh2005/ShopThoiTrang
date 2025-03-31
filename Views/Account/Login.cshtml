@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="auth-container">
+    <h1>Đăng nhập</h1>
+    <form asp-action="Login" method="post">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required />
+            <i class="fas fa-envelope form-icon"></i>
+        </div>
+        <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" class="form-control" required />
+            <i class="fas fa-lock form-icon"></i>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe" />
+            <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        <a asp-action="Register" class="btn btn-link">Chưa có tài khoản? Đăng ký</a>
+    </form>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="text-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+</div>

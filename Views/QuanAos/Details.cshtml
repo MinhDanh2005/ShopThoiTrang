@@ -1,0 +1,159 @@
+﻿@model ShopThoiTrang.Models.QuanAo
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<div class="container">
+    <h1>Chi tiết sản phẩm</h1>
+    <div class="product-detail">
+        <!-- Hiển thị ảnh sản phẩm -->
+        @if (Model.Images != null && Model.Images.Any())
+        {
+            <img src="@Model.Images.First().Url" alt="@Model.Title" style="max-width: 400px; border-radius: 10px;" />
+        }
+        else
+        {
+            <img src="/images/default.jpg" alt="Ảnh mặc định" style="max-width: 400px; border-radius: 10px;" />
+        }
+
+        <!-- Thông tin cơ bản -->
+        <h2>@Model.Title</h2>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </dt>
+            <dd class="col-sm-9">
+                @Model.ReleaseDate.ToString("dd/MM/yyyy")
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-9">
+                @Model.Price.ToString("N0") VNĐ
+            </dd>
+        </dl>
+
+        <!-- Nút chức năng -->
+        <div class="action-buttons">
+            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <button type="submit" class="btn btn-cart">Thêm vào giỏ hàng</button>
+            </form>
+            <a href="/Home/Index" class="btn btn-details">Quay lại trang chủ</a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-edit">Sửa</a>
+            <a asp-controller="QuanAos" asp-action="Index" class="btn btn-back">Quay lại danh sách</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .product-detail {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .product-detail img {
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        .product-detail h2 {
+            color: #2980b9;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .row {
+        margin: 0;
+    }
+
+    .col-sm-3 {
+        font-weight: bold;
+        color: #34495e;
+    }
+
+    .col-sm-9 {
+        color: #7f8c8d;
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-details {
+        background-color: #2980b9;
+        color: #fff;
+    }
+
+        .btn-details:hover {
+            background-color: #3498db;
+        }
+
+    .btn-cart {
+        background-color: #27ae60;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn-cart:hover {
+            background-color: #2ecc71;
+        }
+
+    .btn-edit {
+        background-color: #f39c12;
+        color: #fff;
+    }
+
+        .btn-edit:hover {
+            background-color: #e67e22;
+        }
+
+    .btn-back {
+        background-color: #7f8c8d;
+        color: #fff;
+    }
+
+        .btn-back:hover {
+            background-color: #95a5a6;
+        }
+</style>
